@@ -1,0 +1,899 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>로그인완료페이지</title>
+    <style>
+        .customoverlay {
+            width: 27%;
+            position: relative;
+            bottom: 85px;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+            border-bottom: 2px solid #ddd;
+            float: left;
+        }
+
+        .customoverlay:nth-of-type(n) {
+            border: 0;
+            box-shadow: 0px 1px 2px #888;
+        }
+
+        .customoverlay a {
+
+            display: block;
+            text-decoration: none;
+            color: #000;
+            text-align: center;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: bold;
+            overflow: hidden;
+            /* background: #d95050;
+            background: #d95050 url(https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/arrow_white.png) no-repeat right 14px center; */
+        }
+
+        .customoverlay .title {
+            display: block;
+            text-align: center;
+            background: #fff;
+            margin-right: 35px;
+            padding: 10px 25px;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .customoverlay:after {
+            content: '';
+            position: absolute;
+            margin-left: -12px;
+            left: 50%;
+            bottom: -12px;
+            width: 10px;
+            height: 12px;
+            background: url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/vertex_white.png')
+        }
+    </style>
+    <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
+    <link href="style.css" rel="stylesheet" />
+    <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+    <script type="module", src="sign.js"></script>
+</head>
+
+<body class="sb-nav-fixed">
+    <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+        <!-- Navbar Brand-->
+        <a class="navbar-brand ps-3" href="index.html">(주)씨에어허브</a>
+        <!-- Sidebar Toggle-->
+        <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i
+                class="fas fa-bars"></i></button>
+        <!-- Navbar Search-->
+        <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
+            <div class="input-group">
+                <input class="form-control" type="text" placeholder="관리자님 환영합니다." aria-label="Search for..."
+                    aria-describedby="btnNavbarSearch" />
+            </div>
+        </form>
+        <!-- Navbar-->
+        <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown"
+                    aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
+                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                    <li><a class="dropdown-item" href="#!">Settings</a></li>
+                    <li><a class="dropdown-item" href="#!">Activity Log</a></li>
+                    <li>
+                        <hr class="dropdown-divider" />
+                    </li>
+                    <li><a class="dropdown-item" href="#!">Logout</a></li>
+                </ul>
+            </li>
+        </ul>
+    </nav>
+    <div class="t1" style="height: 55px;"></div>
+    <div id="layoutSidenav">
+
+        <div id="layoutSidenav_nav" style=" width: 15%; float: left;">
+            <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+                <div class="sb-sidenav-menu">
+                    <div class="nav">
+                        <div class="sb-sidenav-menu-heading">Menu</div>
+                        <a class="nav-link" href="index.html">
+                            <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                            Dashboard
+                        </a>
+                        <div class="sb-sidenav-menu-heading">Interface</div>
+                        <a class="nav-link collapsed" href="#" data-bs-toggle="collapse"
+                            data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
+                            <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
+                            Layouts
+                            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                        </a>
+                        <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapsePages"
+                            aria-expanded="false" aria-controls="collapsePages">
+                            <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
+                            Pages
+                            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                        </a>
+                        <div class="sb-sidenav-menu-heading">Addons</div>
+                        <a class="nav-link" href="charts.html">
+                            <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
+                            Charts
+                        </a>
+                        <a class="nav-link" href="tables.html">
+                            <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
+                            Tables
+                        </a>
+                        <a style="
+                                    height: 80px;
+                                "><img src="https://seairhub.com/assets/image/main/main_accumulate.png" alt="" style="
+                                    width: 90%;
+                                    height: 95%;
+                                    margin-top: 20%;
+                                    margin-left: 4%;
+                                "></a>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </div>
+
+    <div class="map-start"
+        style=" color : black; width: 40%; float: left; margin-left: 17.5%;  border:0.2px  solid grey;margin-right:2.5%; height: 70%;">
+        <div class="map-name" style="height: 20%; justify-content: center; display: flex; 
+                align-items: center; text-align: center;">
+            <div style=" border-radius: 70%;">
+                <a href="#" class="btn btn-secondary btn-icon-split" style="background-color: #bebebe; color: black;">
+                    <span class="icon text-white-50">
+                        <i class="fas fa-flag"></i>
+                    </span>
+                    <span class="text" id="title2"><br>운송중인 화물 : </span>
+                </a>
+            </div>
+            <div style="margin-left: 8%
+                    ; border-radius: 70%;">
+                <a href="#" class="btn btn-secondary btn-icon-split" style="background-color: #bebebe; color: black ;">
+                    <span class="icon text-white-50">
+                        <i class="fas fa-info-circle"></i>
+                    </span>
+                    <span data-bs-toggle="modal" data-bs-target="#exampleModal" class="imgtest">상세정보</span>
+                    <!-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                        Launch demo modal
+                    </button> -->
+
+                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                        aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">화물차량번호 : s341vmdw2</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <div
+                                        style="border-bottom :1px solid #dee2e6; padding-bottom: 10px; text-align: left; width: 102%; ">
+                                        운송품목번호 : foej3110</div>
+                                    <div style="height: 120px;">
+                                        <div class="parent"
+                                            style="width: 100%; height: 100%; background: none; padding-top: 10px;">
+                                            <div class="child1"
+                                                style=" text-align: left; vertical-align: middle;line-height: 105px; padding-left: 10px;">
+                                                관련 이미지
+                                            </div>
+                                            <div class="child2" id="child2" style="padding-right: 7%; ">
+
+                                            </div>
+                                            <div class="child3" id="child3" style="background: #81F781;">
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary"
+                                        data-bs-dismiss="modal">Close</button>
+                                    <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div id="map" style="width:100%;height:80%; border-radius: 2%;"></div>
+
+        <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=API_Key"></script>
+        <script>
+            var gbl_data;
+            var user_list;
+            let weatherlist;
+            let DetailImageList;
+            let loaded = localStorage.getItem("pData")
+            if (loaded == null)
+                getPosition(2);
+            else
+                gbl_data = JSON.parse(loaded);
+            getUserList();
+            getDetailImage();
+
+
+            function getPosition(num) {
+
+
+
+
+                //console.log(data);
+                //ajax가 통신을 성공하고 서버가 json을 리턴해주면 자동으로 자바 오브젝트로 변환해줌
+                $.ajax({
+                    type: "GET",
+                    url: "https://perfum.site/pos/recent/" + num,
+                    contentType: "application/json; charset=utf-8", //바디데이터가 어떤 타입인지
+                    async: false,
+                    success: function (data) {
+
+
+                        gbl_data = data;
+                        localStorage.setItem("pData", JSON.stringify(data));
+
+
+
+                        console.log('위치데이터 불러오기 성공');
+
+
+                    },
+                    error: function (data, status, er) {
+
+                        alert("error: " + data + " status: " + status + " er:" + er);
+
+                    }
+
+                });
+
+                //통신을 이용해서 3개의 데이터를 json으로 변경하여 insert요청
+            }
+
+            // weatherlist = new Array(gbl_data.length);
+            //             let leng = gbl_data.length;
+            //             getWeather();
+
+            function getUserList() {
+
+
+
+
+                //console.log(data);
+                //ajax가 통신을 성공하고 서버가 json을 리턴해주면 자동으로 자바 오브젝트로 변환해줌
+                $.ajax({
+                    type: "GET",
+                    url: "https://perfum.site/user/list",
+                    contentType: "application/json; charset=utf-8", //바디데이터가 어떤 타입인지
+                    async: false,
+                    success: function (data1) {
+
+                        user_list = data1;
+                        console.log('유저정보 불러오기 성공');
+
+
+
+
+
+                    },
+                    error: function (data, status, er) {
+
+                        alert("error: " + data + " status: " + status + " er:" + er);
+
+                    }
+
+                });
+
+                //통신을 이용해서 3개의 데이터를 json으로 변경하여 insert요청
+            }
+
+
+            function getDetailImage() {
+
+
+
+
+                //console.log(data);
+                //ajax가 통신을 성공하고 서버가 json을 리턴해주면 자동으로 자바 오브젝트로 변환해줌
+                $.ajax({
+                    type: "POST",
+                    url: "https://perfum.site/s3/find?imgCode=truck_2",
+                    contentType: "application/json; charset=utf-8", //바디데이터가 어떤 타입인지
+                    async: false,
+                    success: function (data) {
+
+                        DetailImageList = data;
+                        console.log('이미지url저장성공');
+
+
+
+
+
+                    },
+                    error: function (data, status, er) {
+
+                        console.log("error: " + data + " status: " + status + " er:" + er);
+                    }
+
+                });
+
+                //통신을 이용해서 3개의 데이터를 json으로 변경하여 insert요청
+            }
+            console.log(gbl_data[0])
+
+            len = gbl_data.length;
+
+
+            // var x = gbl_data[0].latitude;
+            // console.log(x);
+            var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+                mapOption = {
+                    center: new kakao.maps.LatLng(gbl_data[Math.floor(len / 2)].latitude+0.03, gbl_data[Math.floor(len / 2)].longitude), // 지도의 중심좌표
+                    level: 10 // 지도의 확대 레벨
+                };
+
+            var map = new kakao.maps.Map(mapContainer, mapOption);
+
+            var imageSrc = 'http://t1.daumcdn.net/localimg/localimages/07/2018/pc/img/marker_spot.png', // 마커이미지의 주소입니다    
+                imageSize = new kakao.maps.Size(30, 45), // 마커이미지의 크기입니다
+                imageOption = { offset: new kakao.maps.Point(27, 69) }; // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
+
+            // 마커의 이미지정보를 가지고 있는 마커이미지를 생성합니다
+            for (var i = 0; i < len; i++) {
+                if (gbl_data[i].etc == "출발" || gbl_data[i].etc == "도착") continue;
+                var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imageOption),
+                    markerPosition = new kakao.maps.LatLng(gbl_data[i].latitude, gbl_data[i].longitude); // 마커가 표시될 위치입니다
+
+
+
+                // 마커를 생성합니다
+                var marker = new kakao.maps.Marker({
+                    position: markerPosition,
+                    image: markerImage // 마커이미지 설정 
+                });
+
+
+                // 마커가 지도 위에 표시되도록 설정합니다
+                marker.setMap(map);
+
+
+                // 커스텀 오버레이에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+                var content = '<div class="customoverlay" style="width:60%">' +
+                    '  <a href="https://map.kakao.com/link/map/11394059" target="_blank">' +
+                    '    <span class="title" style = " margin-right:0px; padding-right: 50px;">p' + i + '</span>' +
+                    '  </a>' +
+                    '</div>';
+
+                    
+
+
+
+                // 커스텀 오버레이가 표시될 위치입니다 
+                var position = new kakao.maps.LatLng(gbl_data[i].latitude, gbl_data[i].longitude);
+
+
+                // 커스텀 오버레이를 생성합니다
+                var customOverlay = new kakao.maps.CustomOverlay({
+                    map: map,
+                    position: position,
+                    content: content,
+                    yAnchor: 1
+                });
+
+
+            }
+
+            // 출발도착 시작
+            var startSrc = 'https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/red_b.png', // 출발 마커이미지의 주소입니다    
+                startSize = new kakao.maps.Size(50, 45), // 출발 마커이미지의 크기입니다 
+                startOption = {
+                    offset: new kakao.maps.Point(15, 43) // 출발 마커이미지에서 마커의 좌표에 일치시킬 좌표를 설정합니다 (기본값은 이미지의 가운데 아래입니다)
+                };
+
+            // 출발 마커 이미지를 생성합니다
+            var startImage = new kakao.maps.MarkerImage(startSrc, startSize, startOption);
+
+            var startDragSrc = 'https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/red_drag.png', // 출발 마커의 드래그 이미지 주소입니다    
+                startDragSize = new kakao.maps.Size(50, 64), // 출발 마커의 드래그 이미지 크기입니다 
+                startDragOption = {
+                    offset: new kakao.maps.Point(15, 54) // 출발 마커의 드래그 이미지에서 마커의 좌표에 일치시킬 좌표를 설정합니다 (기본값은 이미지의 가운데 아래입니다)
+                };
+
+            // 출발 마커의 드래그 이미지를 생성합니다
+            var startDragImage = new kakao.maps.MarkerImage(startDragSrc, startDragSize, startDragOption);
+
+            // 출발 마커가 표시될 위치입니다 
+            var startPosition = new kakao.maps.LatLng(gbl_data[0].latitude, gbl_data[0].longitude);
+
+            // 출발 마커를 생성합니다
+            var startMarker = new kakao.maps.Marker({
+                map: map, // 출발 마커가 지도 위에 표시되도록 설정합니다
+                position: startPosition,
+                draggable: true, // 출발 마커가 드래그 가능하도록 설정합니다
+                image: startImage // 출발 마커이미지를 설정합니다
+            });
+
+            // 출발 마커에 dragstart 이벤트를 등록합니다
+            kakao.maps.event.addListener(startMarker, 'dragstart', function () {
+                // 출발 마커의 드래그가 시작될 때 마커 이미지를 변경합니다
+                startMarker.setImage(startDragImage);
+            });
+
+            // 출발 마커에 dragend 이벤트를 등록합니다
+            kakao.maps.event.addListener(startMarker, 'dragend', function () {
+                // 출발 마커의 드래그가 종료될 때 마커 이미지를 원래 이미지로 변경합니다
+                startMarker.setImage(startImage);
+            });
+
+            if (gbl_data[len - 1].etc == "도착") {
+                var arriveSrc = 'https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/blue_b.png', // 도착 마커이미지 주소입니다    
+                    arriveSize = new kakao.maps.Size(50, 45), // 도착 마커이미지의 크기입니다 
+                    arriveOption = {
+                        offset: new kakao.maps.Point(15, 43) // 도착 마커이미지에서 마커의 좌표에 일치시킬 좌표를 설정합니다 (기본값은 이미지의 가운데 아래입니다)
+                    };
+
+                // 도착 마커 이미지를 생성합니다
+                var arriveImage = new kakao.maps.MarkerImage(arriveSrc, arriveSize, arriveOption);
+
+                var arriveDragSrc = 'https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/blue_drag.png', // 도착 마커의 드래그 이미지 주소입니다    
+                    arriveDragSize = new kakao.maps.Size(50, 64), // 도착 마커의 드래그 이미지 크기입니다 
+                    arriveDragOption = {
+                        offset: new kakao.maps.Point(15, 54) // 도착 마커의 드래그 이미지에서 마커의 좌표에 일치시킬 좌표를 설정합니다 (기본값은 이미지의 가운데 아래입니다)
+                    };
+
+                // 도착 마커의 드래그 이미지를 생성합니다
+                var arriveDragImage = new kakao.maps.MarkerImage(arriveDragSrc, arriveDragSize, arriveDragOption);
+
+                // 도착 마커가 표시될 위치입니다 
+                var arrivePosition = new kakao.maps.LatLng(gbl_data[len - 1].latitude, gbl_data[len - 1].longitude);
+
+                // 도착 마커를 생성합니다 
+                var arriveMarker = new kakao.maps.Marker({
+                    map: map, // 도착 마커가 지도 위에 표시되도록 설정합니다
+                    position: arrivePosition,
+                    draggable: true, // 도착 마커가 드래그 가능하도록 설정합니다
+                    image: arriveImage // 도착 마커이미지를 설정합니다
+                });
+
+                // 도착 마커에 dragstart 이벤트를 등록합니다
+                kakao.maps.event.addListener(arriveMarker, 'dragstart', function () {
+                    // 도착 마커의 드래그가 시작될 때 마커 이미지를 변경합니다
+                    arriveMarker.setImage(arriveDragImage);
+                });
+
+                // 도착 마커에 dragend 이벤트를 등록합니다
+                kakao.maps.event.addListener(arriveMarker, 'dragend', function () {
+                    // 도착 마커의 드래그가 종료될 때 마커 이미지를 원래 이미지로 변경합니다
+                    arriveMarker.setImage(arriveImage);
+                });
+            }
+        </script>
+    </div>
+    <div class="b-right" style="color : black; float: right; width: 40%;  height: 70%; ">
+        <div style="height:60%;text-align: center; margin-top: 5%;  color: black; background-color: #8080805e; ">데이터 정보
+            <table class="table table-secondary table-striped" style="width: 100%;">
+                <!-- <thead>
+                          <tr>
+                            <th scope="col"></th>
+                            <th scope="col"style="margin-left:5%">First</th>
+                            <th scope="col"></th>
+                          </tr>
+                        </thead> -->
+                <style>
+                    .inform_1 {
+                        /* border-right: 0.3px solid #80808066;
+                        border-top: none; */
+                        border: 0.2px solid grey;
+                    
+
+                    }
+                </style>
+                <tbody class="inform_1">
+                    <tr class="inform_1">
+                        <td class=inform_1 id="tbe1" style="width: 17%; ">출발</th>
+                        <td class=inform_1 id="tbc1" style="width: 10%;"></td>
+                        <td class=inform_1 id="tbw1" style=" width: 30%; "></td>
+                        <td class=inform_1 id="tbl1"></td>
+                    </tr>
+                    <tr>
+                        <td class=inform_1 id="tbe2" scope="row" style="width: 20%;">Point1</th>
+                        <td class=inform_1 id="tbc2"></td>
+                        <td class=inform_1 id="tbw2"></td>
+                        <td class=inform_1 id="tbl2"></td>
+                    </tr>
+                    <tr>
+                        <td class=inform_1 id="tbe3" scope="row" style="width: 20%;">Point2</th>
+                        <td class=inform_1 id="tbc3"></td>
+                        <td class=inform_1 id="tbw3"></td>
+                        <td class=inform_1 id="tbl3"></td>
+                    </tr>
+                    <tr>
+                        <td class=inform_1 id="tbe4" scope="row" style="width: 20%;">Point3</th>
+                        <td class=inform_1 id="tbc4"></td>
+                        <td class=inform_1 id="tbw4"></td>
+                        <td class=inform_1 id="tbl4"></td>
+                    </tr>
+                    <tr>
+                        <td class=inform_1 id="tbe5" scope="row" style="width: 20%;">Point4</th>
+                        <td class=inform_1 id="tbc5"></td>
+                        <td class=inform_1 id="tbw5"></td>
+                        <td class=inform_1 id="tbl5"></td>
+                    </tr>
+                    <tr>
+                        <td class=inform_1 id="tbe6" scope="row" style="width: 20%;">Point5</th>
+                        <td class=inform_1 id="tbc6"></td>
+                        <td class=inform_1 id="tbw6"></td>
+                        <td class=inform_1 id="tbl6"></td>
+                    </tr>
+                    <tr>
+                        <td class=inform_1 id="tbe7" scope="row" style="width: 10%;">point6</th>
+                        <td class=inform_1 id="tbc7"></td>
+                        <td class=inform_1 id="tbw7"></td>
+                        <td class=inform_1 id="tbl7"></td>
+                    </tr>
+                </tbody>
+            </table>
+            <ul class="pagination" style="float: right; margin-right: 5%; margin-bottom: 1%;">
+                <li class="paginate_button page-item active"><a href="#" aria-controls="dataTable" data-dt-idx="1"
+                        tabindex="0" class="page-link" onclick='change1()'>1</a></li>
+                <li class="paginate_button page-item "><a href="#" aria-controls="dataTable" data-dt-idx="2"
+                        tabindex="0" class="page-link" onclick='change2()'>2</a></li>
+                <li class="paginate_button page-item "><a href="#" aria-controls="dataTable" data-dt-idx="3"
+                        tabindex="0" class="page-link" onclick='change3()'>3</a></li>
+                <li class="paginate_button page-item "><a href="#" aria-controls="dataTable" data-dt-idx="4"
+                        tabindex="0" class="page-link" onclick='change4()'>4</a></li>
+                <li class="paginate_button page-item "><a href="#" aria-controls="dataTable" data-dt-idx="5"
+                        tabindex="0" class="page-link" onclick='change5()'>5</a></li>
+                <li class="paginate_button page-item "></li>
+                <li class="paginate_button page-item next" id="dataTable_next"></li>
+            </ul>
+            <div style="height:20%;text-align: center; margin-top: 11%; color: black;border : 0.2px solid grey; background-color: #8080805e;  ">
+                <div>기사님 목록</div>
+                <table class="table table-secondary table-striped" style="width: 100%; border-top: 1px solid black;">
+                    <tbody class="inform_1">
+                        <tr class="inform_1">
+                            <th class=inform_1 id="track1" scope="row" style="width: 25%; height: 40px;" onclick="loadPosition(2)">
+                            </th>
+                            <td class=inform_1 id="track2" style="width: 25%;" onclick="loadPosition(3)"></td>
+                            <td class=inform_1 id="track3" style="width: 25%;" onclick="loadPosition(4)"></td>
+                            <td class=inform_1 id="track4" style="width: 25%;" onclick="loadPosition(5)"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <!-- <table class="table table-secondary table-striped" style="width: 100%;">
+                <tr class="inform_1">
+                    <th scope="row" style="width: 25%;border-right: 0.1px solid black;width: 10%;">기사님 목록</th>
+                    <th id="track1" scope="row" style="width: 25%; border-right: 0.1px solid black;width: 10%;">
+                    </th>
+                    <th id="track2" scope="row" style="width: 25%; border-right: 0.1px solid black;width: 10%;">
+                    </th>
+                    <th id="track3" scope="row" style="width: 25%; border-right: 0.1px solid black;width: 10%;">
+                    </th>
+                </tr>
+            </table> -->
+            <ul class="pagination" style="float: right; margin-right: 5%; margin-top: 3%;">
+                <li class="paginate_button page-item active">
+                    <a href="#" aria-controls="dataTable" data-dt-idx="1" tabindex="0" class="page-link"
+                        onclick='trackChange(1)'>1</a>
+                </li>
+                <li class="paginate_button page-item "><a href="#" aria-controls="dataTable" data-dt-idx="2"
+                        tabindex="0" class="page-link" onclick='trackChange(2)'>2</a></li>
+                <li class="paginate_button page-item "><a href="#" aria-controls="dataTable" data-dt-idx="3"
+                        tabindex="0" class="page-link" onclick='trackChange(3)'>3</a></li>
+                <li class="paginate_button page-item "><a href="#" aria-controls="dataTable" data-dt-idx="4"
+                        tabindex="0" class="page-link" onclick='trackChange(4)'>4</a></li>
+                <li class="paginate_button page-item "><a href="#" aria-controls="dataTable" data-dt-idx="5"
+                        tabindex="0" class="page-link" onclick='trackChange(5)'>5</a></li>
+                <li class="paginate_button page-item "></li>
+                <li class="paginate_button page-item next" id="dataTable_next"></li>
+            </ul>
+        </div>
+        <!-- <div style="text-align: center;border:1px solid gold;">기사님 목록</div> -->
+    </div>
+    </br>
+    <div class="jumbotron text-center"
+        style="background: gainsboro;margin-bottom:0; color: black; width: 100%; height: 16%;; bottom: 0px; position: absolute;">
+        <p style="margin-top: 1%">(주)씨에어허브</p>
+        <p>본사 경기도 고양시 덕양구 삼원로 83, 광양프런티어밸리 1015호</p>
+        <p>고객센터 031-971-2660</p>
+        <p></p>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
+</body>
+
+</html>
+
+<script>
+    let image1 = DetailImageList[0];
+    let image2 = DetailImageList[1];
+    $('#child2').append('<img src=' + image1 + ' style="width:100%; height:100%;">');
+    $('#child3').append('<img src=' + image2 + ' style="width:100%; height:100%;">');
+
+    // let lens = gbl_data.length;
+    // if(lens != 0){
+    //     for(let i=0;i<lens;i++)
+    //         $('#tbc'+i).text('하이'+i);
+    // }
+    $('#title2').html(gbl_data[0].username + ' 기사님이 현재 운송중입니다.');
+    change1();
+
+    let track_text = " 기사님"
+    $('#track1').html(user_list[1].username + track_text);
+    $('#track2').html(user_list[2].username + track_text);
+    $('#track3').html(user_list[3].username + track_text);
+    $('#track4').html(user_list[4].username + track_text);
+
+    function loadPosition(x) {
+
+        getPosition(x);
+        if (self.name != 'reload') {
+            self.name = 'reload';
+            self.location.reload(true);
+        }
+        else self.name = '';
+
+    }
+
+    function change1() {
+        let c11 =0;
+        for (let j = 0; j < 7; j++) {
+            $('#tbc' + (j + 1)).empty();
+            $('#tbw' + (j + 1)).empty();
+            $('#tbl' + (j + 1)).empty();
+            $('#tbe' + (j + 1)).empty();
+            $('#tbc' + (j + 1)).html('.');
+            $('#tbw' + (j + 1)).html('.');
+            $('#tbl' + (j + 1)).html('.');
+            $('#tbe' + (j + 1)).html('.');
+
+
+        }
+
+        for (let c1 = 0; c1 < gbl_data.length; c1++) {
+            let tdata = new Date(gbl_data[c1].createdAt);
+
+
+
+
+
+            $('#tbc' + (c1 + 1)).html(tdata.getHours() + ":" + tdata.getMinutes());
+            $('#tbw' + (c1 + 1)).html(gbl_data[c1].weather);
+            $('#tbl' + (c1 + 1)).html(gbl_data[c1].coordinate);
+            if (c1 == 0)
+                $('#tbe' + (c1 + 1)).html("출발");
+            else if (c1 == gbl_data.length - 1)
+                $('#tbe' + (c1 + 1)).html("도착");
+            else
+                $('#tbe' + (c1 + 1)).html("p" + c1);
+
+        }
+
+    }
+
+    function change2() {
+        let c2 = 0;
+        for (let j = 7; j < 14; j++) {
+            if (j >= gbl_data.length) {
+                let out_start = j;
+                for (out_start; out_start < 14; out_start++) {
+                    $('#tbc' + (c2 + 1)).empty();
+                    $('#tbw' + (c2 + 1)).empty();
+                    $('#tbl' + (c2 + 1)).empty();
+                    $('#tbe' + (c2 + 1)).empty();
+                    $('#tbc' + (c2 + 1)).html('.');
+                    $('#tbw' + (c2 + 1)).html('.');
+                    $('#tbl' + (c2 + 1)).html('.');
+                    $('#tbe' + (c2 + 1)).html('.');
+                    c2++;
+                }
+                break;
+            }
+
+            let tdata = new Date(gbl_data[j].createdAt);
+
+            // if(gbl_data[j].etc!=0){
+            //     $('#tbe'+(j+1)).html(gbl_data[j]);
+            // }else{
+            //     $('#tbe'+(j+1)).html(" ");
+            // }   
+            $('#tbc' + (c2 + 1)).empty();
+            $('#tbw' + (c2 + 1)).empty();
+            $('#tbl' + (c2 + 1)).empty();
+            $('#tbe' + (c2 + 1)).empty();
+
+            $('#tbc' + (c2 + 1)).html(tdata.getHours() + ":" + tdata.getMinutes());
+            $('#tbw' + (c2 + 1)).html(gbl_data[j].weather);
+            $('#tbl' + (c2 + 1)).html(gbl_data[j].latitude);
+
+            if (j == gbl_data.length - 1)
+                $('#tbe' + (c2 + 1)).html("도착");
+            else
+                $('#tbe' + (c2 + 1)).html("p" + j);
+
+            c2++;
+        }
+
+    }
+
+
+    function change3() {
+        let c3 = 0;
+        for (let j = 14; j < 21; j++) {
+            if (j >= gbl_data.length) {
+                let out_start = j;
+                for (out_start; out_start < 21; out_start++) {
+                    $('#tbc' + (c3 + 1)).empty();
+                    $('#tbw' + (c3 + 1)).empty();
+                    $('#tbl' + (c3 + 1)).empty();
+                    $('#tbe' + (c3 + 1)).empty();
+                    $('#tbc' + (c3 + 1)).html('.');
+                    $('#tbw' + (c3 + 1)).html('.');
+                    $('#tbl' + (c3 + 1)).html('.');
+                    $('#tbe' + (c3 + 1)).html('.');
+                    c3++;
+                }
+                break;
+            }
+
+            let tdata = new Date(gbl_data[j].createdAt);
+
+            // if(gbl_data[j].etc!=0){
+            //     $('#tbe'+(j+1)).html(gbl_data[j]);
+            // }else{
+            //     $('#tbe'+(j+1)).html(" ");
+            // }   
+            $('#tbc' + (c3 + 1)).empty();
+            $('#tbw' + (c3 + 1)).empty();
+            $('#tbl' + (c3 + 1)).empty();
+            $('#tbe' + (c3 + 1)).empty();
+            $('#tbc' + (c3 + 1)).html(tdata.getHours() + ":" + tdata.getMinutes());
+            $('#tbw' + (c3 + 1)).html(gbl_data[j].weather);
+            $('#tbl' + (c3 + 1)).html(gbl_data[j].latitude);
+
+            if (j == gbl_data.length - 1)
+                $('#tbe' + (c3 + 1)).html("도착");
+            else
+                $('#tbe' + (c3 + 1)).html("p" + j);
+
+            c3++;
+        }
+
+    }
+
+
+    function change4() {
+
+        let c4 = 0;
+        for (let j = 21; j < 28; j++) {
+            if (j >= gbl_data.length) {
+                let out_start = j;
+                for (out_start; out_start < 28; out_start++) {
+                    $('#tbc' + (c4 + 1)).empty();
+                    $('#tbw' + (c4 + 1)).empty();
+                    $('#tbl' + (c4 + 1)).empty();
+                    $('#tbe' + (c4 + 1)).empty();
+                    $('#tbc' + (c4 + 1)).html('.');
+                    $('#tbw' + (c4 + 1)).html('.');
+                    $('#tbl' + (c4 + 1)).html('.');
+                    $('#tbe' + (c4 + 1)).html('.');
+                    c4++;
+                }
+                break;
+            }
+            let tdata = new Date(gbl_data[j].createdAt);
+
+            // if(gbl_data[j].etc!=0){
+            //     $('#tbe'+(j+1)).html(gbl_data[j]);
+            // }else{
+            //     $('#tbe'+(j+1)).html(" ");
+            // }   
+            $('#tbc' + (c4 + 1)).empty();
+            $('#tbw' + (c4 + 1)).empty();
+            $('#tbl' + (c4 + 1)).empty();
+            $('#tbe' + (c4 + 1)).empty();
+            $('#tbc' + (c4 + 1)).html(tdata.getHours() + ":" + tdata.getMinutes());
+            $('#tbw' + (c4 + 1)).html(gbl_data[j].weather);
+            $('#tbl' + (c4 + 1)).html(gbl_data[j].latitude);
+            if (j == gbl_data.length - 1)
+                $('#tbe' + (c4 + 1)).html("도착");
+            else
+                $('#tbe' + (c4 + 1)).html("P" + j);
+
+            c4++;
+        }
+
+
+    }
+
+
+
+    function change5() {
+        let c5 = 0;
+        for (let j = 28; j < 35; j++) {
+
+            if (j >= gbl_data.length) {
+                let out_start = j;
+                for (out_start; out_start < 35; out_start++) {
+                    $('#tbc' + (c5 + 1)).empty();
+                    $('#tbw' + (c5 + 1)).empty();
+                    $('#tbl' + (c5 + 1)).empty();
+                    $('#tbe' + (c5 + 1)).empty();
+                    $('#tbc' + (c5 + 1)).html('.');
+                    $('#tbw' + (c5 + 1)).html('.');
+                    $('#tbl' + (c5 + 1)).html('.');
+                    $('#tbe' + (c5 + 1)).html('.');
+                    c5++;
+                }
+                break;
+
+                let tdata = new Date(gbl_data[j].createdAt);
+
+                // if(gbl_data[j].etc!=0){
+                //     $('#tbe'+(j+1)).html(gbl_data[j]);
+                // }else{
+                //     $('#tbe'+(j+1)).html(" ");
+                // }   
+                $('#tbc' + (c5 + 1)).empty();
+                $('#tbw' + (c5 + 1)).empty();
+                $('#tbl' + (c5 + 1)).empty();
+                $('#tbe' + (c5 + 1)).empty();
+                $('#tbc' + (c5 + 1)).html(tdata.getHours() + ":" + tdata.getMinutes());
+                $('#tbw' + (c5 + 1)).html(gbl_data[j].weather);
+                $('#tbl' + (c5 + 1)).html(gbl_data[j].latitude);
+                if (j == gbl_data.length - 1)
+                    $('#tbe' + (c5 + 1)).html("도착");
+                else
+                    $('#tbe' + (c5 + 1)).html("P" + j);
+
+                c5++;
+            }
+        }
+    }
+
+    function trackChange(x) {
+        let c2 = 1;
+        let st = (x - 1) * 4 + 1
+        for (let k = 1; k < 5; k++) {
+            $('#track' + k).empty();
+        }
+        for (let j = st; j < st + 4; j++) {
+            if (j >= user_list.length)
+                $('#track' + c2).html('.');
+            else {
+                $('#track' + c2).html(user_list[j].username + " 기사님");
+            }
+
+
+            // if(gbl_data[j].etc!=0){
+            //     $('#tbe'+(j+1)).html(gbl_data[j]);
+            // }else{
+            //     $('#tbe'+(j+1)).html(" ");
+            // }   
+
+            c2++;
+        }
+
+    }
+
+
+
+</script>
